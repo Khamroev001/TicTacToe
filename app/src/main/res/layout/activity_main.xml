@@ -4,18 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/tortburchak_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".MainActivity"
+    android:background="@drawable/tortburchak_1">
 
 
     <LinearLayout
@@ -37,21 +27,22 @@
 
         <LinearLayout style="@style/row">
 
-            <Button
+            <ImageButton
                 android:id="@+id/a1"
-                style="@style/column" />
+                android:tag="1"
+                style="@style/column"
+                />
 
             <View style="@style/verticalLine" />
 
-            <Button
-                android:id="@+id/a2"
-                style="@style/column" />
+            <ImageButton android:id="@+id/a2" style="@style/column" android:tag="2" />
 
             <View style="@style/verticalLine" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/a3"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="3"/>
 
         </LinearLayout>
 
@@ -59,21 +50,24 @@
 
         <LinearLayout style="@style/row">
 
-            <Button
+            <ImageButton
                 android:id="@+id/b1"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="4"/>
 
             <View style="@style/verticalLine" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/b2"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="5"/>
 
             <View style="@style/verticalLine" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/b3"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="6"/>
 
         </LinearLayout>
 
@@ -81,128 +75,132 @@
 
         <LinearLayout style="@style/row">
 
-            <Button
+            <ImageButton
                 android:id="@+id/c1"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="7"/>
 
             <View style="@style/verticalLine" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/c2"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="8"/>
 
             <View style="@style/verticalLine" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/c3"
-                style="@style/column" />
+                style="@style/column"
+                android:tag="9"/>
 
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <TextView
-            android:id="@+id/text_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Score"
-            android:textColor="@color/white"
-            android:textSize="32dp"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout">-->
 
-            />
+    <!--        <TextView-->
+    <!--            android:id="@+id/text_score"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Score"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textSize="32dp"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textStyle="bold"-->
+    <!--            android:layout_margin="10dp"-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="50">
+    <!--            />-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:weightSum="50">-->
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="24"
-                android:orientation="vertical"
-                android:gravity="center">
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="24"-->
+    <!--                android:orientation="vertical"-->
+    <!--                android:gravity="center">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sattor"
-                    android:textSize="28dp"
-                    style="@style/text"
-                    />
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="Sattor"-->
+    <!--                    android:textSize="28dp"-->
+    <!--                    style="@style/text"-->
+    <!--                    />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="6"
-                  android:layout_marginTop="8dp"
-                    style="@style/text"
-                    />
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="6"-->
+    <!--                  android:layout_marginTop="8dp"-->
+    <!--                    style="@style/text"-->
+    <!--                    />-->
 
-            </LinearLayout>
+    <!--            </LinearLayout>-->
 
-            <View
-                android:layout_width="10dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:background="@color/white">
+    <!--            <View-->
+    <!--                android:layout_width="10dp"-->
+    <!--                android:layout_height="100dp"-->
+    <!--                android:layout_marginBottom="16dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:background="@color/white">-->
 
-            </View>
+    <!--            </View>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="24"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sattor"
-                    android:textSize="28dp"
-                    style="@style/text"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="6"
-                    android:layout_marginTop="8dp"
-                    style="@style/text"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="24"-->
+    <!--                android:orientation="vertical"-->
+    <!--                android:gravity="center">-->
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="Sattor"-->
+    <!--                    android:textSize="28dp"-->
+    <!--                    style="@style/text"-->
+    <!--                    />-->
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="6"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    style="@style/text"-->
+    <!--                    />-->
+    <!--            </LinearLayout>-->
+    <!--        </LinearLayout>-->
 
-    </LinearLayout>
+    <!--    </LinearLayout>-->
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.626"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/button" />
 
     <TextView
-        android:id="@+id/Playerchanger"
+        android:id="@+id/active_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sattor"
@@ -214,6 +212,30 @@
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
+    <TextView
+        android:id="@+id/winner"
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Restart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="HardcodedText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
