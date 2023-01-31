@@ -135,9 +135,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         if (count == 3) {
             if(a==1){
-                winner.text = "Winner is " + "X"
+                winner.text = "Winner is " + " Player X"
             }else{
-                winner.text = "Winner is " + "O"
+                winner.text = "Winner is " + "Player O"
             }
             finishGame()
             return
