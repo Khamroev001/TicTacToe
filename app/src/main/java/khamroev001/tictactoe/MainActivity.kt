@@ -2,6 +2,7 @@ package khamroev001.tictactoe
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -17,6 +18,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var mediaPlayer: MediaPlayer? = null
     private lateinit var animSet: Animation
+    private lateinit var animSign_scale: Animation
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        mediaPlayer?.stop()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         nameO = intent.getStringExtra("player0").toString()
 
         animSet = AnimationUtils.loadAnimation(this, R.anim.anim_set)
+        animSign_scale = AnimationUtils.loadAnimation(this, R.anim.anim_signscale)
 
         player1.text = xName
         player2.text = nameO
@@ -46,6 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         img7.setOnClickListener(this)
         img8.setOnClickListener(this)
         restart.setOnClickListener {
+            MediaPlayer.create(this, R.raw.button).start()
             restart()
         }
 
@@ -53,6 +63,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var k = 0
     override fun onClick(p0: View?) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.select)
+        mediaPlayer.start()
         val img = findViewById<ImageButton>(p0!!.id)
         val t = img.tag.toString().toInt()
         val col: Int = t / 3
@@ -60,6 +72,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (matrix[col][row] == -1) {
             if (active) {
                 img.setImageResource(R.drawable.x_sign)
+                img.startAnimation(animSign_scale)
                 active = false
                 matrix[col][row] = 1
                 isWinner(1)
@@ -67,6 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 k++
             } else {
                 img.setImageResource(R.drawable.o_sign)
+                img.startAnimation(animSign_scale)
                 active = true
                 matrix[col][row] = 0
                 isWinner(0)
@@ -167,9 +181,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         img8.isEnabled = false
         restart.visibility = View.VISIBLE
         restart.startAnimation(animSet)
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.success )
+        mediaPlayer.start()
         k = 0
     }
-
 
     private fun restart() {
         matrix = Array(3) { IntArray(3) { -1 } }

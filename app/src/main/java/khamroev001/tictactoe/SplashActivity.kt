@@ -1,6 +1,7 @@
 package khamroev001.tictactoe
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +18,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_layout)
 
+        var mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.air)
+        var mediaPlayer2: MediaPlayer = MediaPlayer.create(this, R.raw.pop)
+
         imgArr.add(t1)
         imgArr.add(i)
         imgArr.add(c1)
@@ -31,7 +35,9 @@ class SplashActivity : AppCompatActivity() {
         var index = 1
         t1.startAnimation(anim)
         anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(p0: Animation?) {}
+            override fun onAnimationStart(p0: Animation?) {
+                mediaPlayer.start()
+            }
 
             override fun onAnimationEnd(p0: Animation?) {
                 if (index <= imgArr.size) {
@@ -40,6 +46,7 @@ class SplashActivity : AppCompatActivity() {
                 if (index == imgArr.size - 1) {
                     toe.visibility = View.VISIBLE
                     toe.startAnimation(anim2)
+                    mediaPlayer2.start()
                 }
             }
 
