@@ -1,110 +1,135 @@
 package khamroev001.tictactoe
 
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    var matrix = Array(3) { IntArray(3) { -1 } }
+    private var matrix = Array(3) { IntArray(3) { -1 } }
     var active = true
-        var k=0
+    private var xName = ""
+    private var nameO = ""
+
+    var mediaPlayer: MediaPlayer? = null
+    private lateinit var animSet: Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        active_player.text = "Player X"
 
-        a1.setOnClickListener(this)
-        a2.setOnClickListener(this)
-        a3.setOnClickListener(this)
-        b1.setOnClickListener(this)
-        b2.setOnClickListener(this)
-        b3.setOnClickListener(this)
-        c1.setOnClickListener(this)
-        c2.setOnClickListener(this)
-        c3.setOnClickListener(this)
+        mediaPlayer = MediaPlayer.create(this, R.raw.background_music)
+        mediaPlayer?.isLooping = true
+        mediaPlayer?.start()
+
+        xName = intent.getStringExtra("playerX").toString()
+        nameO = intent.getStringExtra("player0").toString()
+
+        animSet = AnimationUtils.loadAnimation(this, R.anim.anim_set)
+
+        player1.text = xName
+        player2.text = nameO
+
+        active_player.text = xName
+
+        img0.setOnClickListener(this)
+        img1.setOnClickListener(this)
+        img2.setOnClickListener(this)
+        img3.setOnClickListener(this)
+        img4.setOnClickListener(this)
+        img5.setOnClickListener(this)
+        img6.setOnClickListener(this)
+        img7.setOnClickListener(this)
+        img8.setOnClickListener(this)
         restart.setOnClickListener {
             restart()
         }
 
     }
 
+    var k = 0
     override fun onClick(p0: View?) {
-        val img = findViewById<ImageView>(p0!!.id)
-        var t = img.tag.toString().toInt()-1
-        var col: Int = t / 3
-        var row: Int = t % 3
-
-
+        val img = findViewById<ImageButton>(p0!!.id)
+        val t = img.tag.toString().toInt()
+        val col: Int = t / 3
+        val row: Int = t % 3
         if (matrix[col][row] == -1) {
             if (active) {
                 img.setImageResource(R.drawable.x_sign)
                 active = false
                 matrix[col][row] = 1
-                k++
-                active_player.text = "Player 0"
                 isWinner(1)
+                active_player.text = nameO
+                k++
             } else {
                 img.setImageResource(R.drawable.o_sign)
                 active = true
                 matrix[col][row] = 0
-                k++
-                active_player.text = "Player X"
                 isWinner(0)
-            }
-            println("KKKKKKKKKKKKKKKKKKKKKKKKKKK")
-            println(k)
-            if (k==9){
-                finishGame()
-                winner.text="DRAW"
-                k=0
+                active_player.text = xName
+                k++
             }
         }
 
+        if (k == 9) {
+            winner.text = "Draw"
+            finishGame()
+        }
+    }
 
+    var count = 0
+    private fun isWinner(a: Int) {
+        // by horizontal side e.g: left to right
+        horizontalCheck(a)
+        count = 0
+
+        // by vertical side e.g: top to bottom
+        verticalCheck(a)
+        count = 0
+
+        // x 0 0
+        // 0 x 0
+        // 0 0 x
+        fromLeftTopToRightBottomCheck(a)
+        count = 0
+
+        // 0 0 x
+        // 0 x 0
+        // x 0 0
+        fromRightTopToBottomCheck(a)
+        count = 0
 
     }
 
-    fun isWinner(a: Int) {
-        var count = 0
+    private fun horizontalCheck(a: Int) {
         for (i in 0..2) {
             for (j in 0..2) {
                 if (matrix[i][j] == a) {
                     count++
                 }
             }
-            if (count == 3) {
-                if(a==1){
-                    winner.text = "Winner is " + "X"
-                }else{
-                    winner.text = "Winner is " + "O"
-                }
-                finishGame()
-                return
-            }
+            showWinnerName(a)
             count = 0
         }
-        count = 0
+    }
+
+    private fun verticalCheck(a: Int) {
         for (i in 0..2) {
             for (j in 0..2) {
                 if (matrix[j][i] == a) {
                     count++
                 }
             }
-            if (count == 3) {
-                if(a==1){
-                    winner.text = "Winner is " + "X"
-                }else{
-                    winner.text = "Winner is " + "O"
-                }
-                finishGame()
-                return
-            }
+            showWinnerName(a)
             count = 0
         }
-        count = 0
+    }
+
+    private fun fromLeftTopToRightBottomCheck(a: Int) {
         for (i in 0..2) {
             for (j in 0..2) {
                 if (i == j) {
@@ -114,16 +139,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-        if (count == 3) {
-            if(a==1){
-                winner.text = "Winner is " + "X"
-            }else{
-                winner.text = "Winner is " + "O"
-            }
-            finishGame()
-            return
-        }
-        count = 0
+        showWinnerName(a)
+    }
+
+    private fun fromRightTopToBottomCheck(a: Int) {
         for (i in 0..2) {
             for (j in 0..2) {
                 if (i + j == 2) {
@@ -133,60 +152,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-        if (count == 3) {
-            if(a==1){
-                winner.text = "Winner is " + " Player X"
-            }else{
-                winner.text = "Winner is " + "Player O"
-            }
-            finishGame()
-            return
-        }
+        showWinnerName(a)
     }
 
-    fun finishGame() {
-        a1.isEnabled = false
-        a2.isEnabled = false
-        a3.isEnabled = false
-        b1.isEnabled = false
-        b2.isEnabled = false
-        b3.isEnabled = false
-        c1.isEnabled = false
-        c2.isEnabled = false
-        c3.isEnabled = false
+    private fun finishGame() {
+        img0.isEnabled = false
+        img1.isEnabled = false
+        img2.isEnabled = false
+        img3.isEnabled = false
+        img4.isEnabled = false
+        img5.isEnabled = false
+        img6.isEnabled = false
+        img7.isEnabled = false
+        img8.isEnabled = false
         restart.visibility = View.VISIBLE
-        k=0
+        restart.startAnimation(animSet)
+        k = 0
     }
 
-    fun restart() {
+
+    private fun restart() {
         matrix = Array(3) { IntArray(3) { -1 } }
         active = true
-        active_player.text = "Player X"
+        active_player.text = xName
 
         restart.visibility = View.INVISIBLE
 
         winner.text = ""
 
-        a1.isEnabled = true
-        a2.isEnabled = true
-        a3.isEnabled = true
-        b1.isEnabled = true
-        b2.isEnabled = true
-        b3.isEnabled = true
-        c1.isEnabled = true
-        c2.isEnabled = true
-        c3.isEnabled = true
+        img0.isEnabled = true
+        img1.isEnabled = true
+        img2.isEnabled = true
+        img3.isEnabled = true
+        img4.isEnabled = true
+        img5.isEnabled = true
+        img6.isEnabled = true
+        img7.isEnabled = true
+        img8.isEnabled = true
 
-        a1.setImageDrawable(null)
-        a2.setImageDrawable(null)
-        a3.setImageDrawable(null)
-        b1.setImageDrawable(null)
-        b2.setImageDrawable(null)
-        b3.setImageDrawable(null)
-        c1.setImageDrawable(null)
-        c2.setImageDrawable(null)
-        c3.setImageDrawable(null)
+        img0.setImageDrawable(null)
+        img1.setImageDrawable(null)
+        img2.setImageDrawable(null)
+        img3.setImageDrawable(null)
+        img4.setImageDrawable(null)
+        img5.setImageDrawable(null)
+        img6.setImageDrawable(null)
+        img7.setImageDrawable(null)
+        img8.setImageDrawable(null)
 
-        k=0
+        k = 0
+    }
+
+    private fun showWinnerName(a: Int) {
+        var winnerName = ""
+        winnerName = if (a == 0) nameO else xName
+
+        if (count == 3) {
+            winner.text = "Winner is $winnerName"
+            if (a == 1) {
+                player1_score.text = (player1_score.text.toString().toInt() + 1).toString()
+            } else {
+                player2_score.text = (player2_score.text.toString().toInt() + 1).toString()
+            }
+            finishGame()
+            return
+        }
     }
 }
