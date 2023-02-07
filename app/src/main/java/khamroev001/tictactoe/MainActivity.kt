@@ -26,13 +26,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mediaPlayer?.stop()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+   override fun onPause(){
+       super.onPause()
+       mediaPlayer?.stop()
+   }
+    override fun onResume(){
+        super.onResume()
         mediaPlayer = MediaPlayer.create(this, R.raw.background_music)
         mediaPlayer?.isLooping = true
         mediaPlayer?.start()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         xName = intent.getStringExtra("playerX").toString()
         nameO = intent.getStringExtra("player0").toString()
