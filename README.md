@@ -70,13 +70,9 @@ When contributing code, please follow these steps:
 
 Thank you for your contribution!
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/khamroev001/TicTacToe/blob/main/LICENSE) file for details.
-
 ## Contact
 
-For any inquiries or questions, please contact me at [your-email@example.com](mailto:your-email@example.com).
+For any inquiries or questions, please contact me at [sattorkhamroev@gmail.com](mailto:sattorkhamroev@gmail.com).
 
 Follow me on GitHub: [khamroev001](https://github
 
